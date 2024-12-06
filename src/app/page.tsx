@@ -50,7 +50,7 @@ export default function WeatherApp() {
         </button>
       </form>
       {weather && (
-        <div>
+        <div className="border rounded-lg p-4 shadow-sm max-w max-w-[200px] text-center">
           <h2 className="text-xl font-semibold">{weather.city}</h2>
           <p>天気: {weather.description}</p>
           <p>気温: {weather.temperature}°C</p>
