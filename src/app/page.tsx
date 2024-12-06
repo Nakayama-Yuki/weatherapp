@@ -3,13 +3,12 @@
 
 import { useState, useTransition } from "react";
 import { getWeather } from "@/app/action";
-import Image from "next/image";
 
 interface Weather {
   city: string;
-  icon: string;
-  description: string;
+  humidity: number;
   temperature: number;
+  description: string;
 }
 
 export default function WeatherApp() {
@@ -32,13 +31,14 @@ export default function WeatherApp() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Weather Forecast</h1>
+      <h1 className="text-2xl font-bold mb-4">天気予報アプリ</h1>
+      <p>都市名を入力すると、天気と気温、湿度を見られます。</p>
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
           value={city}
           onChange={(e) => setCity(e.target.value)}
-          placeholder="Enter city name"
+          placeholder="都市名を入力"
           className="border px-4 py-2 mr-2"
           required
         />
@@ -46,21 +46,15 @@ export default function WeatherApp() {
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded"
           disabled={isPending}>
-          {isPending ? "Loading..." : "Get Weather"}
+          {isPending ? "ロード中..." : "取得する"}
         </button>
       </form>
       {weather && (
         <div>
           <h2 className="text-xl font-semibold">{weather.city}</h2>
-          <Image
-            src={weather.icon}
-            alt={weather.description}
-            width={50}
-            height={50}
-          />
-          <p>Temperature: {weather.temperature}°C</p>
-          <p>Temperature: {weather.temperature}°C</p>
-          <p>Description: {weather.description}</p>
+          <p>天気: {weather.description}</p>
+          <p>気温: {weather.temperature}°C</p>
+          <p>湿度: {weather.humidity}%</p>
         </div>
       )}
     </div>
