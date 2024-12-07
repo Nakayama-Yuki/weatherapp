@@ -2,7 +2,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { getWeather } from "@/app/action";
+import { getWeather } from "@/app/actions";
 
 interface Weather {
   city: string;
