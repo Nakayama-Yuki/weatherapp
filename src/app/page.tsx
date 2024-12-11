@@ -1,43 +1,20 @@
 // app/page.tsx
 "use client";
 
-import { useState, useTransition } from "react";
+import { useActionState } from "react";
 import { getWeather } from "@/app/actions";
 
-interface Weather {
-  city: string;
-  humidity: number;
-  temperature: number;
-  description: string;
-}
-
 export default function WeatherApp() {
-  const [city, setCity] = useState("");
-  const [weather, setWeather] = useState<Weather | null>(null);
-  const [isPending, startTransition] = useTransition();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    startTransition(async () => {
-      try {
-        const data = await getWeather(city);
-        setWeather(data);
-      } catch {
-        alert("Failed to fetch weather data");
-        setWeather(null);
-      }
-    });
-  };
+  const [weather, action, isPending] = useActionState(getWeather, undefined);
 
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">天気予報アプリ</h1>
       <p>都市名を入力すると、天気と気温、湿度を見られます。</p>
-      <form onSubmit={handleSubmit} className="mb-4">
+      <form action={action} className="mb-4">
         <input
           type="text"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
+          name="city"
           placeholder="都市名を入力"
           className="border px-4 py-2 mr-2"
           required
