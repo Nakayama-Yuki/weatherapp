@@ -1,12 +1,18 @@
 // app/actions/getWeather.ts
 "use server";
 
-export async function getWeather(city: string) {
+interface Weather {
+  city: string;
+  humidity: number;
+  temperature: number;
+  description: string;
+}
+
+export async function getWeather(previousState: unknown, formData: FormData) {
+  const city = formData.get("city") as string;
   const apiKey = process.env.OPENWEATHER_API_KEY;
-  const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(
-    city
-  )}&appid=${apiKey}&units=metric&lang=ja`;
-  //lang=jaで日本語に設定
+
+  const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ja`;
 
   const response = await fetch(endpoint);
 
@@ -16,10 +22,13 @@ export async function getWeather(city: string) {
 
   const data = await response.json();
 
-  return {
+  // 戻り値がWeather型に合致することを保証
+  const weather: Weather = {
     city: data.name,
     temperature: data.main.temp,
     humidity: data.main.humidity,
     description: data.weather[0].description,
   };
+
+  return weather;
 }
