@@ -26,13 +26,16 @@ export default function WeatherApp() {
           {isPending ? "ロード中..." : "取得する"}
         </button>
       </form>
-      {weather && (
+      {weather?.success && (
         <div className="border rounded-lg p-4 shadow-sm max-w max-w-[200px] text-center">
           <h2 className="text-xl font-semibold">{weather.city}</h2>
           <p>天気: {weather.description}</p>
           <p>気温: {weather.temperature}°C</p>
           <p>湿度: {weather.humidity}%</p>
         </div>
+      )}
+      {weather?.success === false && (
+        <div className="text-red-500 mt-4">{weather.errorMessage}</div>
       )}
     </div>
   );
