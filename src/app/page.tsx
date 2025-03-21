@@ -21,13 +21,13 @@ export default function WeatherApp() {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          className="bg-blue-500 text-white px-4 py-2 rounded-sm"
           disabled={isPending}>
           {isPending ? "ロード中..." : "取得する"}
         </button>
       </form>
       {weather?.success && (
-        <div className="border rounded-lg p-4 shadow-sm max-w max-w-[200px] text-center">
+        <div className="border rounded-lg p-4 shadow-xs max-w max-w-[200px] text-center">
           <h2 className="text-xl font-semibold">{weather.city}</h2>
           <p>天気: {weather.description}</p>
           <p>気温: {weather.temperature}°C</p>
