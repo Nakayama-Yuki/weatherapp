@@ -1,4 +1,4 @@
-// app/actions/getWeather.ts
+// app/actions.tsx
 "use server";
 
 type ActionResponseType =
