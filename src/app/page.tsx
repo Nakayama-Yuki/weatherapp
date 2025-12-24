@@ -15,15 +15,16 @@ export default function WeatherApp() {
         <input
           type="text"
           name="city"
-          placeholder="都市名を入力"
+          placeholder="都市名を入力..."
           className="border px-4 py-2 mr-2"
           required
         />
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded-sm"
-          disabled={isPending}>
-          {isPending ? "ロード中..." : "取得する"}
+          disabled={isPending}
+        >
+          {isPending ? "ロード中..." : "検索"}
         </button>
       </form>
       {weather?.success && (
@@ -35,7 +36,7 @@ export default function WeatherApp() {
         </div>
       )}
       {weather?.success === false && (
-        <div className="text-red-500 mt-4">{weather.errorMessage}</div>
+        <div className="text-red-500 error mt-4">{weather.errorMessage}</div>
       )}
     </div>
   );
