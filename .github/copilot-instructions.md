@@ -3,7 +3,8 @@
 ## プロジェクト概要
 
 - 都市名を入力すると、OpenWeatherMap API から天気情報を取得し表示する Next.js アプリ。
-- フロントエンドは React 19 + TypeScript 5、スタイリングは Tailwind CSS v4。
+- フロントエンドは React 19 + TypeScript 5、Next.js 16、スタイリングは Tailwind CSS v4。
+- Server Actionsを使用したフォーム駆動のデータ取得を実装。
 - 主要なロジックは`src/app/`配下に集中。
 
 ## 主要ディレクトリ・ファイル
@@ -23,14 +24,16 @@
 
 ## 環境変数
 
-- `.env.local`に`NEXT_PUBLIC_OPENWEATHERMAP_API_KEY`を設定。
+- `.env.local`に`OPENWEATHER_API_KEY`を設定。
 - API キーは OpenWeatherMap 公式から取得。
+- サーバーサイド専用の環境変数なので`NEXT_PUBLIC_`プレフィックスは不要。
 
 ## コーディング規約・パターン
 
-- データ取得は`actions.ts`で関数化し、UI から呼び出す。
-- 都市名はフォーム入力 →API リクエスト → 結果表示の流れ。
-- 型定義は TypeScript で厳密に管理。
+- データ取得は`actions.ts`でServer Actionsとして実装し、フォームから直接呼び出す。
+- `useActionState`フックを使用してフォーム状態と送信を管理。
+- 都市名はフォーム入力 → Server Action実行 → 結果表示の流れ。
+- 型定義は TypeScript で厳密に管理（ActionResponseType等）。
 - スタイリングは Tailwind CSS ユーティリティクラスを優先。
 - ページ構成は`src/app/page.tsx`単一ファイルで完結。
 
@@ -41,7 +44,8 @@
 
 ## 注意点
 
-- Next.js 15/React 19 の新機能（Server Actions 等）は未使用。
+- Next.js 16/React 19 の Server Actions を使用。
+- `'use server'`ディレクティブで Server Actions を定義し、`useActionState`で状態管理。
 - 追加機能は`src/app/`配下に実装。
 - テストコード・CI/CD は現状未導入。
 
