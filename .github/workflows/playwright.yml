@@ -46,9 +46,13 @@ jobs:
       # ステップ７: nextjsのビルド
       - name: Build Next.js application
         run: pnpm build
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
       # ステップ８: Playwrightテストの実行
       - name: Run Playwright tests
         run: pnpm exec playwright test
+        env:
+          OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
       # ステップ９: Playwrightレポートのアップロード
       - uses: actions/upload-artifact@v6
         if: ${{ !cancelled() }}
