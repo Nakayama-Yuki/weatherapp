@@ -2,10 +2,14 @@
 "use client";
 
 import { useActionState } from "react";
-import { getWeather } from "@/app/actions";
+import { getWeather, type WeatherActionState } from "@/app/actions";
 
 export default function WeatherApp() {
-  const [weather, action, isPending] = useActionState(getWeather, undefined);
+  const initialWeatherState: WeatherActionState = undefined;
+  const [weather, action, isPending] = useActionState<WeatherActionState, FormData>(
+    getWeather,
+    initialWeatherState
+  );
 
   return (
     <div className="container mx-auto p-4">

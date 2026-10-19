@@ -1,7 +1,7 @@
 // app/actions.tsx
 "use server";
 
-type ActionResponseType =
+export type WeatherActionResult =
   | {
       success: true;
       city: string;
@@ -14,10 +14,12 @@ type ActionResponseType =
       errorMessage: string;
     };
 
+export type WeatherActionState = WeatherActionResult | undefined;
+
 export async function getWeather(
-  previousState: unknown,
+  previousState: WeatherActionState,
   formData: FormData
-): Promise<ActionResponseType> {
+): Promise<WeatherActionResult> {
   const city = formData.get("city") as string;
   const apiKey = process.env.OPENWEATHER_API_KEY;
 
