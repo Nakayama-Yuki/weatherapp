@@ -53,3 +53,11 @@ pnpm exec playwright test
 - `.github/workflows/playwright.yml`：lint・ビルド・E2E の CI。API キーは Secrets から渡します。
 
 開発ルールは [AGENTS.md](AGENTS.md) を参照してください。
+
+## 型チェック
+
+```bash
+pnpm typecheck
+```
+
+`next typegen` でルート型と `next-env.d.ts` を生成し、`tsc --noEmit` で型を検証します。CI でもビルド前に同じコマンドを実行します。
