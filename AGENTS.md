@@ -59,7 +59,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - 追加機能は`src/app/`配下に実装。
 - `tests/example.spec.ts` に天気検索の E2E テスト、`.github/workflows/playwright.yml` に CI がある。
 - 検証は `pnpm lint`、`pnpm build`、`pnpm exec playwright test`。`test` スクリプトは未定義。
-- Playwright は `pnpm start` を起動するため、事前にビルドし、実 API を使うテストには `OPENWEATHER_API_KEY` を設定する。
+- 通常のE2Eは `pnpm build:e2e` 後に、テスト用fetchを読み込んだ本番サーバーで実行する。実APIの疎通は手動の `Live API smoke test` で確認する。
 
 ---
 
