@@ -7,7 +7,10 @@
     "build": "next build",
     "typecheck": "next typegen && tsc --noEmit",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:e2e": "playwright test",
+    "ci:check": "pnpm typecheck && pnpm lint --max-warnings=0",
+    "build:e2e": "node --import ./tests/mock-fetch.mjs node_modules/next/dist/bin/next build"
   },
   "dependencies": {
     "next": "16.4.6",
@@ -26,5 +29,6 @@
     "tailwindcss": "^4.3.5",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.72.2"
-  }
+  },
+  "packageManager": "pnpm@12.21.0"
 }
